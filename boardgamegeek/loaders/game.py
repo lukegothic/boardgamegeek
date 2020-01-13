@@ -13,8 +13,8 @@ def create_game_from_xml(xml_root, game_id):
     if game_type not in ["boardgame", "boardgameexpansion", "boardgameaccessory"]:
         log.debug("unsupported type {} for item id {}".format(game_type, game_id))
         raise BGGApiError("item has an unsupported type")
-
-    data = {"id": game_id,
+    bgg_game_id = int(xml_root.attrib["id"])
+    data = {"id": bgg_game_id,
             "name": xml_subelement_attr(xml_root, "name[@type='primary']"),
             "alternative_names": xml_subelement_attr_list(xml_root, "name[@type='alternate']"),
             "thumbnail": xml_subelement_text(xml_root, "thumbnail"),
